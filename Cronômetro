@@ -1,0 +1,66 @@
+using System;
+using System.Threading;
+
+namespace Teste
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Menu();
+        }
+
+        static void Menu()
+        {
+            Console.Clear();
+            System.Console.WriteLine("s - contar em segundos (Ex: 10s)");
+            System.Console.WriteLine("m - contar em minutos (Ex: 10m)");
+            System.Console.WriteLine("0 - Sair da aplicação");
+            System.Console.WriteLine("Quanto tempo deseja contar?");
+
+            string data = Console.ReadLine().ToLower(); // deixar letras em minúsculo
+            char type = char.Parse(data.Substring(data.Length - 1, 1)); // (data.Length - 1, 1) para selecionar o último caracter - definie s ou m
+            int time = int.Parse(data.Substring(0, data.Length - 1)); // (0, data.Length - 1) para não considerar o último caracter
+            int multiplier = 1;
+
+            if(type == 'm')
+                multiplier = 60;
+
+                if(time == 0)
+                    System.Environment.Exit(0);
+
+                PreStart(time * multiplier);
+
+            System.Console.WriteLine(type);
+            System.Console.WriteLine(time);
+
+        }
+
+        static void PreStart(int time)
+        {
+            Console.Clear();
+            System.Console.WriteLine("Iniciando...");
+            Thread.Sleep(1000);
+
+            Start(time);
+
+        }
+        static void Start(int time) // considera o tempo digitado pelo usuário
+        {
+            int currentTime = 0;
+
+            while (currentTime != time)
+            {
+                Console.Clear();
+                currentTime++;
+                System.Console.WriteLine(currentTime);
+                Thread.Sleep(1000);
+            }
+
+            Console.Clear();
+            System.Console.WriteLine("Cronômetro finalizado. \nRetornando para o menu.");
+            Thread.Sleep(2500);
+            Menu();
+        }
+    }
+}
